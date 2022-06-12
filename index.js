@@ -24,8 +24,8 @@ dotenv.config();
 
 app.use("/api/auth", authRoute);
 app.use("/api/hotels", hotelRoute);
-app.use("/api/auth", roomsRoute);
-app.use("/api/auth", usersRoute);
+app.use("/api/rooms", roomsRoute);
+app.use("/api/user", usersRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
