@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 
 
@@ -17,6 +18,7 @@ import roomsRoute from "./routes/rooms.js";
 const app = express();
 
 // middleware
+app.use(cookieParser())
 app.use(express.json());
 app.use(cors());
 
@@ -25,7 +27,7 @@ dotenv.config();
 app.use("/api/auth", authRoute);
 app.use("/api/hotels", hotelRoute);
 app.use("/api/rooms", roomsRoute);
-app.use("/api/user", usersRoute);
+app.use("/api/users", usersRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
