@@ -10,7 +10,7 @@ export const createHotel = async (req, res, next) => {
   }
 };
 
-//
+// update
 
 export const updateHotel = async (req, res, next) => {
   try {
@@ -25,6 +25,8 @@ export const updateHotel = async (req, res, next) => {
   }
 };
 
+// delete
+
 export const deleteHotel = async (req, res, next) => {
   try {
     await Hotel.findByIdAndDelete(req.params.id);
@@ -33,6 +35,8 @@ export const deleteHotel = async (req, res, next) => {
     next(err);
   }
 };
+
+// getting hotel id
 
 export const getHotel = async (req, res, next) => {
   try {
@@ -43,6 +47,8 @@ export const getHotel = async (req, res, next) => {
   }
 };
 
+
+// getting all hotel
 export const getAllHotel = async (req, res, next) => {
   try {
     const hotels = await Hotel.find();
@@ -51,3 +57,20 @@ export const getAllHotel = async (req, res, next) => {
     next(err);
   }
 };
+
+// getting hotel by city
+
+export const countByCity = async (req, res, next) => {
+  const cities = req.query.cities.split(",");
+  try {
+    const list = await Promise.all(
+      cities.map((city) => {
+        return Hotel.countDocuments({ city: city });
+      })
+    );
+    res.status(200).json(list);
+  } catch (err) {
+    next(err);
+  }
+};
+
